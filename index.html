@@ -9,55 +9,22 @@
 
 </head>
 <body>
-<!--<div class="display-1 text-center">Todo List</div>-->
+<div class="display-1 text-center">Todo List</div>
 
 <div class="container" id="app">
-    <prop-component text="Fox" anotherprop="dog"></prop-component>
+
 
     <ul class="list-group">
         <list-entry v-for="item in todo" :key="item.time" :time="item.time" :description="item.description"></list-entry>
+        <add-entry v-model="newDescription" v-on:submitnewtodo="handle_submitnewtodo"></add-entry>
     </ul>
 
-<!--<table class="table container">-->
-<!--    <tr>-->
-<!--        <td>May 10th 2021 11:59 PM</td>-->
-<!--        <td>Todo description alksdjglkasdjglz ljkcvjladf</td>-->
-<!--        <td><button type="button" class="btn btn-outline-secondary"><i class="bi-check bi-check2"></i></button></td>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <td>May 10th 2021 11:59 PM</td>-->
-<!--        <td>Todo description alksdjglkasdjglz ljkcvjladf</td>-->
-<!--        <td><button type="button" class="btn btn-outline-secondary"><i class="bi-check bi-check2"></i></button></td>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <td>May 10th 2021 11:59 PM</td>-->
-<!--        <td>Todo description alksdjglkasdjglz ljkcvjladf</td>-->
-<!--        <td><button type="button" class="btn btn-outline-secondary"><i class="bi-check bi-check2"></i></button></td>-->
-<!--    </tr>-->
-<!--    -->
-<!--    <tbody>-->
-<!--    <list-entry v-for="item in todo" :key="item.time" :time="item.time" :description="item.description">-->
-<!--        <td>{{ item.time }}</td>-->
-<!--        <td>{{ item.description }}</td>-->
-<!--        <td><button type="button" class="btn btn-outline-secondary"><i class="bi-check bi-check2"></i></button></td>-->
-
-<!--    </list-entry>-->
-<!--    <tr>-->
-<!--        <td></td>-->
-<!--        <td class="form-floating mb-3">-->
-<!--            <input type="text" class="form-control" id="newTodoText" placeholder="Todo Text">-->
-<!--            <label for="newTodoText">Todo Text</label>-->
-<!--        </td>-->
-<!--        <td><button type="button" class="btn btn-outline-secondary"><i class="bi bi-plus"></i></button></td>-->
-<!--    </tr>-->
-<!--    </tbody>-->
-<!--</table>-->
 
 </div>
 
 
-<!--<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>-->
-<!--<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-database.js"></script>-->
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-database.js"></script>
 <script src="todoList.js" ></script>
 </body>
 </html>
