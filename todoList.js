@@ -21,9 +21,23 @@ function writeNewTodo(descr) {
     return {time: ts, description: descr}
 }
 
+function getAllTodo() {
+    let todos = []
+    database.ref('/todo').once('value').then((snap) => {
+        for (let key in snap.val()) {
+            todos.push({time: key, description: snap.val()[key].text});
+        }
+    });
+    return todos
+}
+
 function parseTime(ts) {
     let date = new Date(ts);
     return date.toLocaleString();
+}
+
+function deleteTodo(ts) {
+    database.ref('/todo/'+ts).remove();
 }
 
 Vue.component('list-entry', {
@@ -34,13 +48,19 @@ Vue.component('list-entry', {
       <div class="row">
       <div class="col-2">{{ localeTime }}</div>
       <div class="col">{{ description }}</div>
-      <div class="col-2"><button type="button" class="btn btn-outline-secondary"><i class="bi-check bi-check2"></i></button></div></div>
+      <div class="col-2"><button type="button" v-on:click="check_todo" class="btn btn-outline-secondary"><i class="bi-check bi-check2"></i></button></div></div>
       </div>
       </li>
     `,
     data: function (){
         return {
-            localeTime: parseTime(this.time),
+            localeTime: parseTime(parseInt(this.time)),
+        }
+    },
+    methods: {
+        check_todo: function () {
+            deleteTodo(this.time);
+            this.$emit('todochecked');
         }
     }
 });
@@ -64,7 +84,7 @@ Vue.component('add-entry',
         `,
         methods: {
             submit_todo: function () {
-                this.$emit('submitnewtodo')
+                this.$emit('submitnewtodo');
             }
         }
     }
@@ -85,9 +105,6 @@ const app = new Vue({
     el: '#app',
     data: {
         todo: [
-            {time: Date.now(), description: "Do laundry"},
-            {time: Date.now(), description: "Do shopping"},
-            {time: Date.now(), description: "Do chores"},
         ],
         newDescription: ""
     },
@@ -98,7 +115,12 @@ const app = new Vue({
             let newdescr = writeNewTodo(desc);
             console.log(newdescr);
             this.todo.push(newdescr);
-
+        },
+        handle_deletetodo: function() {
+            this.todo = getAllTodo();
         }
+    },
+    created: function () {
+        this.todo = getAllTodo();
     }
 })

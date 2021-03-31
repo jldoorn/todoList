@@ -15,7 +15,7 @@
 
 
     <ul class="list-group">
-        <list-entry v-for="item in todo" :key="item.time" :time="item.time" :description="item.description"></list-entry>
+        <list-entry v-on:todochecked="handle_deletetodo" v-for="item in todo" :key="item.time" :time="item.time" :description="item.description"></list-entry>
         <add-entry v-model="newDescription" v-on:submitnewtodo="handle_submitnewtodo"></add-entry>
     </ul>
 
