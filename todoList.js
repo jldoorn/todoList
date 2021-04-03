@@ -54,12 +54,12 @@ Vue.component('list-entry', {
       <li class="list-group-item">
       <div class="container">
       <div class="row">
-      <div class="col-2">{{ localeTime }}</div>
+      <div class="col-2 time">{{ localeTime }}</div>
       <div class="col">
-        <div v-if="!editing">{{ description }}</div>
+        <div class="todo-text" v-if="!editing">{{ description }}</div>
         <input v-if="editing" type="text" v-model="updatedDescription">
       </div>
-      <div class="col-2">
+      <div class="col-2 actions">
         <button type="button" v-if="!editing" v-on:click="editing = !editing" class="btn btn-outline-secondary"><i class="bi bi-pen"></i></button>
         <button type="button" v-on:click="check_todo" class="btn btn-outline-secondary"><i class="bi-check bi-check2"></i></button>
       </div></div>

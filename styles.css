@@ -1,0 +1,33 @@
+.container {
+    margin:5px auto ;
+    width: 75%;
+    background-color: rgba(127,127,127,0.4);
+    border-style: groove;
+    padding: 5px 25px;
+}
+
+.time {
+    font-size: medium;
+    font-style: oblique;
+}
+.todo-text {
+    font-size: large;
+}
+
+.actions {
+    width: fit-content;
+    margin-top: 10px;
+    border-style: solid;
+    border-color: black;
+    border-width: 3px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
