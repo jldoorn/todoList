@@ -31,6 +31,14 @@ function getAllTodo() {
     return todos
 }
 
+function editTodo(ts, newDescr) {
+    database.ref('todo/'+ts).set({
+        text: newDescr
+    });
+
+    return {time: ts, description: newDescr}
+}
+
 function parseTime(ts) {
     let date = new Date(ts);
     return date.toLocaleString();
@@ -47,21 +55,36 @@ Vue.component('list-entry', {
       <div class="container">
       <div class="row">
       <div class="col-2">{{ localeTime }}</div>
-      <div class="col">{{ description }}</div>
-      <div class="col-2"><button type="button" v-on:click="check_todo" class="btn btn-outline-secondary"><i class="bi-check bi-check2"></i></button></div></div>
+      <div class="col">
+        <div v-if="!editing">{{ description }}</div>
+        <input v-if="editing" type="text" v-model="updatedDescription">
+      </div>
+      <div class="col-2">
+        <button type="button" v-if="!editing" v-on:click="editing = !editing" class="btn btn-outline-secondary"><i class="bi bi-pen"></i></button>
+        <button type="button" v-on:click="check_todo" class="btn btn-outline-secondary"><i class="bi-check bi-check2"></i></button>
+      </div></div>
       </div>
       </li>
     `,
     data: function (){
         return {
             localeTime: parseTime(parseInt(this.time)),
+            updatedDescription: this.description,
+            editing: false
         }
     },
     methods: {
         check_todo: function () {
-            deleteTodo(this.time);
-            this.$emit('todochecked');
-        }
+            if (this.editing) {
+                this.description = this.updatedDescription;
+                editTodo(this.time, this.updatedDescription);
+                this.editing = false;
+            }
+            else {
+                deleteTodo(this.time);
+                this.$emit('todochecked');
+            }
+        },
     }
 });
 
